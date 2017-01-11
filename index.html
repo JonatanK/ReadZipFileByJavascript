@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Teste de Zip</title>
+        <script src="node_modules/jszip/dist/jszip.js"></script>
+        <script src="node_modules/jszip/dist/jszip-utils.min.js"></script>
+        
+        <!--
+        Mandatory in IE 6, 7, 8 and 9.
+        -->
+        <!--[if IE]>
+        <script src="node_modules/jszip/dist/jszip-utils-ie.min.js"></script>
+        <![endif]-->
+
+    </head>
+    <body>
+        <h1>Teste de leitura de zip</h1>
+
+        <pre id="values">
+
+        </pre>
+
+        <script>
+            document.getElementById("values").innerHTML = "";
+            JSZipUtils.getBinaryContent('http://localhost:8080/zipfiles/test.zip', function(err, data) {
+                if(err) {
+                    console.log(err);
+                }
+
+                JSZip.loadAsync(data).then(function (results) {
+                    console.log(results.files);
+                    for(var property in results.files){
+                        document.getElementById("values").innerHTML += property + "<br>";
+                    }
+                });
+            });
+
+            
+        </script>
+    </body>
+</html>
